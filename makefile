@@ -1,5 +1,5 @@
 TARGET = avr555
-SRC = src/main.c src/uart.c
+SRC = src/main.c
 MCU = atmega328p
 F_CPU = 16000000
 BAUD = 9600

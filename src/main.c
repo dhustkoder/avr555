@@ -35,6 +35,11 @@ static uint16_t read_adc(const uint8_t analog_pin)
 }
 
 
+ISR(__vector_INT0_Vect)
+{
+	reset = true;
+}
+
 noreturn void main(void)
 {
 	DDRD |= DIGITAL_PIN_OUT|DIGITAL_PIN_DC;
@@ -48,6 +53,7 @@ Lreset:
 	cli();
 
 	PORTD &= ~(DIGITAL_PIN_OUT|DIGITAL_PIN_DC);
+
 	while (!(PIND&DIGITAL_PIN_RES))
 		;
 
@@ -68,11 +74,5 @@ Lreset:
 		if (reset)
 			goto Lreset;
 	}
-}
-
-
-ISR(__vector_INT0_Vect)
-{
-	reset = true;
 }
 
